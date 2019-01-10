@@ -1,4 +1,4 @@
-import * as localStorageService from "@/services/localStorageService";
+import localStorageService from "@/services/localStorageService";
 
 export const namespaced = true;
 
@@ -9,14 +9,17 @@ export const state = {
 const storage = {
   saveBucket(value) {
     localStorageService.setItem(localStorageService.storageKeys.bucket, value);
+  },
+  loadBucket() {
+    return localStorageService.getValue(localStorageService.storageKeys.bucket);
   }
 };
 
 let nextId = 1;
 export const mutations = {
   HYDRATE(state, bucket) {
-    state.options = JSON.parse(bucket);
-    nextId = Math.max(bucket.map(b => b.id)) + 1;
+    state.options = [...bucket];
+    nextId = Math.max(...bucket.map(b => b.id)) + 1;
   },
   PUSH(state, option) {
     state.options.push({
@@ -34,8 +37,12 @@ export const mutations = {
 };
 
 export const actions = {
-  hydrate({ commit, bucket }) {
-    commit("HYDRATE", bucket);
+  hydrate({ commit }) {
+    const bucketString = storage.loadBucket();
+    if (bucketString) {
+      const bucket = JSON.parse(bucketString);
+      commit("HYDRATE", bucket);
+    }
   },
   add({ commit }, option) {
     commit("PUSH", option);

@@ -9,12 +9,17 @@
 <script>
 import SpinnerContainer from "@/components/SpinnerContainer.vue";
 import OptionContainer from "@/components/OptionContainer.vue";
+import { mapActions } from 'vuex';
 
 export default {
   name: "home",
   components: {
     SpinnerContainer,
     OptionContainer
-  }
+  },
+  created() {
+    this.hydrate()
+  },
+  methods: mapActions("option", ["hydrate"])
 };
 </script>
