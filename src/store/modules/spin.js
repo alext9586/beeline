@@ -1,16 +1,20 @@
 export const namespaced = true;
 
+const SPIN_STATE_START = "start";
+const SPIN_STATE_SPIN = "spin";
+const SPIN_STATE_STOP = "stop";
+
 export const state = {
   options: [],
   currentIndex: 0,
   currentValue: "",
-  spinning: false
+  spinState: SPIN_STATE_STOP
 };
 
 export const mutations = {
   START_SPIN(state, options) {
     state.options = [...options];
-    state.spinning = true;
+    state.spinState = SPIN_STATE_START;
   },
   ADVANCE_INDEX(state) {
     state.currentIndex =
@@ -18,9 +22,10 @@ export const mutations = {
         ? 0
         : state.currentIndex + 1;
     state.currentValue = state.options[state.currentIndex].value;
+    state.spinState = SPIN_STATE_SPIN;
   },
   STOP_SPIN() {
-    state.spinning = false;
+    state.spinState = SPIN_STATE_STOP;
   }
 };
 
@@ -38,9 +43,11 @@ export const actions = {
         } else {
           commit("STOP_SPIN");
         }
-      }, 500);
+      }, 250);
     };
 
-    rotate();
+    setTimeout(() => {
+      rotate();
+    }, 500);
   }
 };
