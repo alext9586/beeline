@@ -16,16 +16,6 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
-    spinOptions() {
-      if (this.options.length) {
-        let lastOption = {
-          id: Math.max(...this.options.map(o => o.id)) + 1,
-          value: this.options[0].value
-        };
-        return [...this.options, lastOption];
-      }
-      return [];
-    },
     reelClass() {
       return "reel-" + this.spinState;
     },

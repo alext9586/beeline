@@ -7,7 +7,7 @@ const SPIN_STATE_STOP = "stop";
 export const state = {
   options: [],
   currentIndex: 0,
-  currentValue: "",
+  currentValue: "Ready...",
   spinState: SPIN_STATE_STOP
 };
 
@@ -32,7 +32,10 @@ export const mutations = {
 export const actions = {
   spin({ commit, rootState }) {
     commit("START_SPIN", rootState.option.options);
-    const numberOfSpins = 5; // Math.floor(Math.random() * 100) + 100;
+    const minSpins = state.options.length;
+    const maxSpins = 2 * minSpins;
+    const numberOfSpins =
+      Math.floor(Math.random() * Math.floor(maxSpins)) + minSpins;
     let spin = 0;
 
     const rotate = () => {
