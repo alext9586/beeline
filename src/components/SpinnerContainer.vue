@@ -8,6 +8,7 @@
     <div>{{spinState}}</div>
     <div>{{currentValue}}</div>
     <button v-on:click="spin">Spin</button>
+    <button v-on:click="pickSelected">Pick</button>
   </div>
 </template>
 
@@ -19,9 +20,21 @@ export default {
     reelClass() {
       return "reel-" + this.spinState;
     },
-    ...mapState("spin", ["currentValue", "options", "spinState"])
+    ...mapState("spin", [
+      "currentIndex",
+      "currentValue",
+      "options",
+      "spinState"
+    ])
   },
-  methods: mapActions("spin", ["spin"])
+  methods: {
+    pickSelected() {
+      const selectedOption = this.options[this.currentIndex];
+      this.pick(selectedOption);
+    },
+    ...mapActions("spin", ["spin"]),
+    ...mapActions("option", ["pick"])
+  }
 };
 </script>
 

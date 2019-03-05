@@ -3,22 +3,25 @@
     <h1>Beeline</h1>
     <SpinnerContainer/>
     <OptionContainer/>
+    <HistoryContainer/>
   </div>
 </template>
 
 <script>
 import SpinnerContainer from "@/components/SpinnerContainer.vue";
 import OptionContainer from "@/components/OptionContainer.vue";
-import { mapActions } from 'vuex';
+import HistoryContainer from "@/components/HistoryContainer.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "home",
   components: {
     SpinnerContainer,
-    OptionContainer
+    OptionContainer,
+    HistoryContainer
   },
   created() {
-    this.hydrate()
+    this.hydrate();
   },
   methods: mapActions("option", ["hydrate"])
 };

@@ -2,7 +2,8 @@ export default {
   storageKeys: {
     maxValue: "maxValue",
     bucket: "bucket",
-    discardBucket: "discardBucket"
+    discardBucket: "discardBucket",
+    history: "history"
   },
   setItem(key, value) {
     window.localStorage.setItem(key, value);

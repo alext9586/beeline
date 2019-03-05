@@ -14,6 +14,7 @@ export const state = {
 export const mutations = {
   START_SPIN(state, options) {
     state.options = [...options];
+    state.currentIndex = 0;
     state.spinState = SPIN_STATE_START;
   },
   ADVANCE_INDEX(state) {
